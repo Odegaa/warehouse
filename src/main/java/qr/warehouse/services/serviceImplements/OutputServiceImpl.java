@@ -28,7 +28,8 @@ public class OutputServiceImpl implements OutputService {
 
     @Override
     public Result addOutput(OutputDTO outputDTO) {
-        return setData(outputDTO);
+        Output output = new Output();
+        return setData(output, outputDTO);
     }
 
     @Override
@@ -41,9 +42,28 @@ public class OutputServiceImpl implements OutputService {
         return repository.findById(outputId).orElse(null);
     }
 
+    @Override
+    public Result updateOutput(Long outputId, OutputDTO outputDTO) {
+        Optional<Output> outputOptional = repository.findById(outputId);
+        if(outputOptional.isPresent()) {
+            Output output = outputOptional.get();
+            setData(output, outputDTO);
+        }
+        return new Result("Output not found!", false);
+    }
 
-    private Result setData(OutputDTO outputDTO) {
-        Output output = new Output();
+    @Override
+    public Result deleteOutput(Long outputId) {
+        Optional<Output> outputOptional = repository.findById(outputId);
+        if(outputOptional.isPresent()) {
+            repository.deleteById(outputId);
+            return new Result("Output deleted!", true);
+        }
+        return new Result("Output not found!", false);
+    }
+
+
+    private Result setData(Output output, OutputDTO outputDTO) {
 
         Optional<Warehouse> warehouseOptional = warehouseRepository.findById(outputDTO.getWarehouseId());
         warehouseOptional.ifPresent(output::setWarehouse_id);

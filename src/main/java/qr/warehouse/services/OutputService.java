@@ -13,4 +13,7 @@ public interface OutputService {
 
     Output getOutput(Long outputId);
 
+    Result updateOutput(Long outputId, OutputDTO outputDTO);
+
+    Result deleteOutput(Long outputId);
 }

@@ -31,6 +31,15 @@ public class OutputController {
         return service.getOutput(outputId);
     }
 
+    @PutMapping("/{outputId}")
+    private Result updateOutput(@PathVariable Long outputId,
+                                @RequestBody OutputDTO outputDTO) {
+        return service.updateOutput(outputId,outputDTO);
+    }
 
+    @DeleteMapping("/{outputId}")
+    private Result deleteOutput(@PathVariable Long outputId) {
+        return service.deleteOutput(outputId);
+    }
 
 }

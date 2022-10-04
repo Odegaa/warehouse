@@ -64,7 +64,6 @@ public class ProductServiceImpl implements ProductService {
         return new Result("Product not found or EXCEPTION!", false);
     }
 
-
     private Result setData(Product product, ProductDTO productDTO) {
         Optional<Category> categoryOptional = categoryRepository.findById(productDTO.getCategoryId());
         if (categoryOptional.isEmpty())
